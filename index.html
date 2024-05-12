@@ -12,33 +12,32 @@
 
         <section class="logIn-form__inputs">
           <div class="logIn-form__inputDiv">
-            <label for="user_id" class="logIn-form__inputs__label"
-              >Identification
-            </label>
+            <label for="user_id">Identification</label>
             <input
               id="user_id"
               name="user_id"
               type="text"
               autocomplete="current-identification"
-              class="logIn-form__inputs__input"
               placeholder="Identification" />
           </div>
 
           <div class="logIn-form__inputDiv">
-            <label for="user_password" class="logIn-form__label"
-              >Password
-            </label>
+            <label for="user_password">Password</label>
             <input
               id="user_password"
               name="user_password"
               type="password"
               autocomplete="current-password"
-              class="logIn-form__input"
               placeholder="Password" />
           </div>
         </section>
 
         <button class="logIn-form__button" type="submit">Log In</button>
+
+        <section class="logIn-form__signUp">
+          <span>You dont have an account?</span>
+          <a href="./signUp.html">Sign up</a>
+        </section>
 
         <div id="alert"></div>
       </form>
