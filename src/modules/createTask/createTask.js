@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const logInForm = document.getElementById('logIn-form');
+  const taskForm = document.getElementById('task-form');
   const alert = document.getElementById('alert');
 
-  logInForm.addEventListener('submit', logIn);
+  taskForm.addEventListener('submit', createTask);
 
-  function logIn(e) {
+  function createTask(e) {
 
     e.preventDefault();
 
-    const data = new FormData(logInForm);
-    
-    fetch('./src/modules/logIn/logIn.php', {
-      method: "POST",
+    const data = new FormData(taskForm)
+
+    fetch('./modules/createTask/createTask.php', {
+      method: 'POST',
       body: data
     })
 
@@ -20,26 +20,20 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((response) => {
 
         if (response.error) {
+
           switch (response.error) {
             case 'empty':
-              showAlert('Camplete all fields', 'error');
-              break;
-
-            case 'non existent data':
-              showAlert('Wrong username or password', 'error');
+              showAlert('Complete all fields', 'error');
               break;
 
             case 'connection error':
               showAlert('Unable to connect with the server', 'error');
               break;
           }
-        } else if (response.msg) {
-          showAlert('Loggin In', 'success');
-          setTimeout(() => {
-            window.location = './src/toDoList.php';
-          }, 1000);
-        }
 
+        } else if (response.msg) {
+          location.reload();
+        }
       })
   }
 
@@ -53,5 +47,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000)
 
   }
-
 })
