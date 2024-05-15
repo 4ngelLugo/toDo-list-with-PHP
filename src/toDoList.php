@@ -4,16 +4,19 @@ session_start();
 
 include './configs/config.php';
 
-$get_pending = $conn->prepare('SELECT * FROM tasks WHERE task_status = "pending"');
+$get_pending = $conn->prepare('SELECT * FROM tasks WHERE task_status = "pending" AND task_user = :user_id');
+$get_pending->bindParam(':user_id', $_SESSION['user_id']);
 $get_pending->execute();
 
 $pending = $get_pending->fetchAll(PDO::FETCH_ASSOC);
 
-$rows = $conn->prepare('SELECT COUNT(*) total FROM tasks WHERE task_status = "pending"');
+$rows = $conn->prepare('SELECT COUNT(*) total FROM tasks WHERE task_status = "pending" AND task_user = :user_id');
+$rows->bindParam(':user_id', $_SESSION['user_id']);
 $rows->execute();
 $total = $rows->fetchColumn();
 
-$get_completed = $conn->prepare('SELECT * FROM tasks WHERE task_status = "completed"');
+$get_completed = $conn->prepare('SELECT * FROM tasks WHERE task_status = "completed" AND task_user = :user_id');
+$get_completed->bindParam(':user_id', $_SESSION['user_id']);
 $get_completed->execute();
 
 $completed = $get_completed->fetchAll(PDO::FETCH_ASSOC);

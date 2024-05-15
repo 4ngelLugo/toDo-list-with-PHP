@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (response.msg) {
           showAlert('User created successfully', 'success');
           setTimeout(() => {
-            window.location = '../../../index.html';
+            window.location = './index.html';
           }, 1000);
         }
 
