@@ -2,19 +2,21 @@
 
 session_start();
 
-echo $_SESSION['user_id'];
-
 include './configs/config.php';
-
-$get_tasks = $conn->prepare('SELECT * FROM tasks');
-$get_tasks->execute();
-
-$tasks = $get_tasks->fetchAll(PDO::FETCH_ASSOC);
 
 $get_pending = $conn->prepare('SELECT * FROM tasks WHERE task_status = "pending"');
 $get_pending->execute();
 
 $pending = $get_pending->fetchAll(PDO::FETCH_ASSOC);
+
+$rows = $conn->prepare('SELECT COUNT(*) total FROM tasks WHERE task_status = "pending"');
+$rows->execute();
+$total = $rows->fetchColumn();
+
+$get_completed = $conn->prepare('SELECT * FROM tasks WHERE task_status = "completed"');
+$get_completed->execute();
+
+$completed = $get_completed->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -27,11 +29,11 @@ $pending = $get_pending->fetchAll(PDO::FETCH_ASSOC);
   <title>To Do list</title>
 </head>
 
-<sc>
+<body>
   <section class="addTask">
     <form action="" id="task-form" class="task-form">
       <label class="task-form__label" for="">Crate task</label>
-      <input class="task-form__input" name="task_title" type="text" placeholder="Task title" />
+      <input class="task-form__input" name="task_title" type="text" placeholder="Task title" autocomplete="new-taskTitle" />
       <textarea class="task-form__input" name="task_desc" placeholder="Task description"></textarea>
       <div id="alert"></div>
 
@@ -42,8 +44,29 @@ $pending = $get_pending->fetchAll(PDO::FETCH_ASSOC);
   <section class="tasks">
 
     <div class="tasks__pending">
+
+      <h2>Pending</h2>
+
       <?php
-      foreach ($pending as $row) {
+      for ($i = 0; $i < $total; $i++) {
+      ?>
+        <form action="" id="complete-task" class="complete-task">
+          <input type="hidden" name="task_id" value="<?php echo $pending[$i]['task_id'] ?>" />
+          <input type="text" name="task_title" value="<?php echo $pending[$i]['task_title'] ?>" disabled />
+          <button type="submit">Complete</button>
+        </form>
+      <?php } ?>
+
+      <div id="alert-pending"></div>
+
+    </div>
+
+    <div class="tasks__completed">
+
+      <h2>Completed</h2>
+
+      <?php
+      foreach ($completed as $row) {
       ?>
         <input type="checkbox" name="<?php echo $row['task_title'] ?>" id="task<?php echo $row['task_id'] ?>">
         <span><?php echo $row['task_title'] ?></span>
@@ -53,6 +76,7 @@ $pending = $get_pending->fetchAll(PDO::FETCH_ASSOC);
   </section>
 
   <script src="./modules/createTask/createTask.js"></script>
-  </body>
+  <script src="./modules/completeTask/completeTask.js"></script>
+</body>
 
 </html>
