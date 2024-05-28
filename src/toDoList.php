@@ -1,14 +1,15 @@
 <?php
 
-session_start();
-
 include './configs/config.php';
+include './configs/validateSession.php';
 
 $get_pending = $conn->prepare('SELECT * FROM tasks WHERE task_status = "pending" AND task_user = :user_id');
 $get_pending->bindParam(':user_id', $_SESSION['user_id']);
 $get_pending->execute();
 
 $pending = $get_pending->fetchAll(PDO::FETCH_ASSOC);
+
+$date = date('Y-m-d');
 
 $rows = $conn->prepare('SELECT COUNT(*) total FROM tasks WHERE task_status = "pending" AND task_user = :user_id');
 $rows->bindParam(':user_id', $_SESSION['user_id']);
@@ -38,6 +39,8 @@ $completed = $get_completed->fetchAll(PDO::FETCH_ASSOC);
       <label class="task-form__label" for="">Crate task</label>
       <input class="task-form__input" name="task_title" type="text" placeholder="Task title" autocomplete="new-taskTitle" />
       <textarea class="task-form__input" name="task_desc" placeholder="Task description"></textarea>
+      <input type="date" name="task_due">
+
       <div id="alert"></div>
 
       <button type="submit">Create</button>
@@ -56,7 +59,18 @@ $completed = $get_completed->fetchAll(PDO::FETCH_ASSOC);
         <form action="" id="complete-task" class="complete-task">
           <input type="hidden" name="task_id" value="<?php echo $pending[$i]['task_id'] ?>" />
           <input type="text" name="task_title" value="<?php echo $pending[$i]['task_title'] ?>" disabled />
+          <input type="text" name="task_due" id="task_due" value="<?php echo $pending[$i]['task_due'] ?>" disabled />
+
           <button type="submit">Complete</button>
+
+          <?php
+          if ($pending[$i]['task_due'] > $date) {
+          ?>
+            <span>Past due time</span>
+          <?php
+          }
+          ?>
+
         </form>
       <?php } ?>
 
@@ -78,8 +92,11 @@ $completed = $get_completed->fetchAll(PDO::FETCH_ASSOC);
 
   </section>
 
+  <button id="logOff">Log Off</button>
+
   <script src="./modules/createTask/createTask.js"></script>
   <script src="./modules/completeTask/completeTask.js"></script>
+  <script src="./modules/logOff/logOff.js"></script>
 </body>
 
 </html>
