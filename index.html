@@ -3,45 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/assets/styles/index.css" />
     <title>Log In</title>
   </head>
   <body>
-    <div class="container">
-      <form action="" class="logIn-form" id="logIn-form">
-        <h1 class="logIn-form__title">Log In</h1>
+    <form autocomplete="nope" action="" class="logIn_form" id="logIn-form">
+      <h1 class="logIn_form--title">Log In</h1>
 
-        <section class="logIn-form__inputs">
-          <div class="logIn-form__inputDiv">
-            <label for="user_id">Identification</label>
-            <input
-              id="user_id"
-              name="user_id"
-              type="text"
-              autocomplete="current-identification"
-              placeholder="Identification" />
-          </div>
+      <section class="logIn_form--inputs">
+        <div class="logIn_form--inputDiv">
+          <label for="user_id">Identification</label>
+          <input
+            id="user_id"
+            name="user_id"
+            type="number"
+            placeholder="Type your identification"
+            required />
+        </div>
 
-          <div class="logIn-form__inputDiv">
-            <label for="user_password">Password</label>
-            <input
-              id="user_password"
-              name="user_password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Password" />
-          </div>
-        </section>
+        <div class="logIn_form--inputDiv">
+          <label for="user_password">Password</label>
+          <input
+            id="user_password"
+            name="user_password"
+            type="password"
+            placeholder="Type your password"
+            required />
+          <span id="showPass" class="show"></span>
+        </div>
+      </section>
 
-        <button class="logIn-form__button" type="submit">Log In</button>
+      <section class="logIn_form--actions">
+        <button class="logIn_form--button" type="submit">Log In</button>
 
-        <section class="logIn-form__signUp">
-          <span>You dont have an account?</span>
-          <a href="./signUp.html">Sign up</a>
-        </section>
+        <span>- or -</span>
 
-        <div id="alert"></div>
-      </form>
-    </div>
+        <a href="./signUp.html">Sign up</a>
+      </section>
+    </form>
+
+    <div id="alert"></div>
 
     <script src="./src/modules/logIn/logIn.js"></script>
   </body>

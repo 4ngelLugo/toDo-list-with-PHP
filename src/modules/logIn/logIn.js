@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const data = new FormData(logInForm);
-    
+
     fetch('./src/modules/logIn/logIn.php', {
       method: "POST",
       body: data
@@ -53,5 +53,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000)
 
   }
+
+  const show = document.getElementById('showPass');
+  const inputPass = document.getElementById('user_password');
+
+  show.addEventListener('click', () => {
+    if (inputPass.getAttribute('type') === 'password') {
+      inputPass.setAttribute('type', 'text');
+      show.classList.add('hide');
+      show.classList.remove('show');
+    } else if (inputPass.getAttribute('type') === 'text') {
+      inputPass.setAttribute('type', 'password');
+      show.classList.add('show');
+      show.classList.remove('hide');
+    }
+
+  })
 
 })
