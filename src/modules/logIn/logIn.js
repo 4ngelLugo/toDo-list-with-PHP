@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.error) {
           switch (response.error) {
             case 'empty':
-              showAlert('Camplete all fields', 'error');
+              showAlert('Complete all fields', 'error');
               break;
 
             case 'non existent data':

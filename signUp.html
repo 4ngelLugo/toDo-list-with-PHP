@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/assets/styles/form.css" />
     <title>Sign Up</title>
   </head>
   <body>
     <div class="container">
-      <form action="" class="signUp-form" id="signUp-form">
-        <h1 class="signUp-form__title">Sign Up</h1>
+      <form action="" class="form" id="signUp-form">
+        <h1 class="form--title">Sign Up</h1>
 
-        <section class="signUp-form__inputs">
-          <div class="signUp-form__inputDiv">
+        <section class="form--inputs">
+          <div class="form--inputDiv">
             <label for="user_id">Identification</label>
             <input
               id="user_id"
@@ -21,7 +22,7 @@
               placeholder="Identification" />
           </div>
 
-          <div class="signUp-form__inputDiv">
+          <div class="form--inputDiv">
             <label for="user_name">User Name</label>
             <input
               id="user_name"
@@ -31,7 +32,7 @@
               placeholder="User Name" />
           </div>
 
-          <div class="signUp-form__inputDiv">
+          <div class="form--inputDiv">
             <label for="user_email">E-mail</label>
             <input
               id="user_email"
@@ -41,7 +42,7 @@
               placeholder="E-mail" />
           </div>
 
-          <div class="signUp-form__inputDiv">
+          <div class="form--inputDiv">
             <label for="user_password">Password</label>
             <input
               id="user_password"
@@ -49,10 +50,17 @@
               type="password"
               autocomplete="new-password"
               placeholder="Password" />
+            <span id="showPass" class="show"></span>
           </div>
         </section>
 
-        <button class="signUp-form__button" type="submit">Sign up</button>
+        <section class="form--actions">
+          <button class="form--button" type="submit">Sign up</button>
+
+          <span>- or -</span>
+
+          <a href="./">Log In</a>
+        </section>
 
         <div id="alert"></div>
       </form>

@@ -58,4 +58,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   }
 
+  const show = document.getElementById('showPass');
+  const inputPass = document.getElementById('user_password');
+
+  show.addEventListener('click', () => {
+    if (inputPass.getAttribute('type') === 'password') {
+      inputPass.setAttribute('type', 'text');
+      show.classList.add('hide');
+      show.classList.remove('show');
+    } else if (inputPass.getAttribute('type') === 'text') {
+      inputPass.setAttribute('type', 'password');
+      show.classList.add('show');
+      show.classList.remove('hide');
+    }
+
+  })
+
 })
